@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:store_ui/components/default_buttom.dart';
-import 'package:store_ui/components/form_error.dart';
-import 'package:store_ui/components/no_account_text.dart';
+
 
 import 'package:store_ui/size_config.dart';
 
-import '../../../components/custom_surfix_icon.dart';
-import '../../../constants.dart';
+
 import 'forgot_password_form.dart';
 
 class Body extends StatelessWidget {

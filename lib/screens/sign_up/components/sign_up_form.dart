@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:store_ui/screens/complete_profile/complete_profile_screen.dart';
 
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/default_buttom.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import '../../forgot_password/forgot_password_screen.dart';
-import '../../login_success/login_success_screen.dart';
 
-class SignForm extends StatefulWidget {
-  const SignForm({super.key});
+class SignUpFrom extends StatefulWidget {
+  const SignUpFrom({super.key});
 
   @override
-  State<SignForm> createState() => _SignFormState();
+  State<SignUpFrom> createState() => _SignUpFromState();
 }
 
-class _SignFormState extends State<SignForm> {
+class _SignUpFromState extends State<SignUpFrom> {
   final _formkey = GlobalKey<FormState>();
   late String email;
   late String password;
+  late String conformPassword;
   final List<String> errors = [];
-  late bool remember = false;
 
-  void addError({required String error}) {
+  void addError({String? error}) {
     if (!errors.contains(error)) {
       setState(() {
-        errors.add(error);
+        errors.add(error!);
       });
     }
   }
 
-  void removeError({required String error}) {
-    if (!errors.contains(error)) {
+  void removeError({String? error}) {
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
@@ -42,57 +41,66 @@ class _SignFormState extends State<SignForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formkey,
-      child: Column(
-        children: [
-          buildEmailFormField(),
-          SizedBox(
-            height: getProportionateScreenHeight(20),
-          ),
-          buildPasswordFormField(),
-          SizedBox(
-            height: getProportionateScreenHeight(20),
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value!;
-                  });
-                },
-              ),
-              const Text('Remember me'),
-              const Spacer(),
-              GestureDetector(
-                onTap: () => Navigator.of(context)
-                    .pushNamed(ForgotPasswordScreen.routeName),
-                child: const Text(
-                  'Forget Password',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          FormError(errors: errors),
-          SizedBox(
-            height: getProportionateScreenHeight(10),
-          ),
-          DefaultButton(
-            text: 'Login',
-            press: () {
-              if (_formkey.currentState!.validate()) {
-                _formkey.currentState!.save();
-                Navigator.of(context).pushNamed(
-                  LoginSuccessScreen.routeName,
-                );
-              }
-            },
-          )
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            buildEmailFormField(),
+            SizedBox(
+              height: getProportionateScreenHeight(30),
+            ),
+            buildPasswordFormField(),
+            SizedBox(
+              height: getProportionateScreenHeight(30),
+            ),
+            buildConformPassFormField(),
+            FormError(errors: errors),
+            SizedBox(
+              height: getProportionateScreenHeight(40),
+            ),
+            DefaultButton(
+              text: 'Next',
+              press: () {
+                if (_formkey.currentState!.validate()) {
+                  _formkey.currentState!.save();
+
+                  Navigator.of(context)
+                      .pushNamed(CompleteProfileScreen.routeName);
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  TextFormField buildConformPassFormField() {
+    return TextFormField(
+      obscureText: true,
+      onSaved: (newValue) => conformPassword = newValue!,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        } else if (value.isNotEmpty && password == conformPassword) {
+          removeError(error: kMatchPassError);
+        }
+        conformPassword = value;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        } else if ((password != value)) {
+          addError(error: kMatchPassError);
+          return "";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Confirm Password",
+        hintText: "Re-enter your password",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
@@ -108,6 +116,7 @@ class _SignFormState extends State<SignForm> {
         } else if (value.length >= 8 && errors.contains(kShortPassError)) {
           removeError(error: kShortPassError);
         }
+        password = value;
       },
       validator: (value) {
         if (value!.isEmpty && !errors.contains(kPassNullError)) {
@@ -143,7 +152,6 @@ class _SignFormState extends State<SignForm> {
         } else if (emailValidatorRegExp.hasMatch(value) &&
             errors.contains(kInvalidEmailError)) {
           removeError(error: kInvalidEmailError);
-          errors.remove(kInvalidEmailError);
         }
       },
       validator: (value) {
