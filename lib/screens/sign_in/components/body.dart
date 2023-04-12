@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 
+import '../../../components/no_account_text.dart';
 import '../../../components/social_card.dart';
-import '../../../constants.dart';
 import '../../../size_config.dart';
-import '../../forgot_password/forgot_password_screen.dart';
 import 'sign_in_form.dart';
 
 class Body extends StatelessWidget {
@@ -68,42 +67,6 @@ class Body extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class NoAccountText extends StatelessWidget {
-  const NoAccountText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Don't have an account? ",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(
-              16,
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () =>
-              Navigator.of(context).pushNamed(ForgotPasswordScreen.routeName),
-          child: Text(
-            "Sign Up",
-            style: TextStyle(
-              fontSize: getProportionateScreenWidth(
-                16,
-              ),
-              color: kPrimaryColor,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

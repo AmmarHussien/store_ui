@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:store_ui/screens/login_success/components/body.dart';
 
 import '../../../components/custom_surfix_icon.dart';
 import '../../../components/default_buttom.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../forgot_password/forgot_password_screen.dart';
+import '../../login_success/login_success_screen.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({super.key});
@@ -46,10 +49,14 @@ class _SignFormState extends State<SignForm> {
               ),
               const Text('Remember me'),
               const Spacer(),
-              const Text(
-                'Forget Password',
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
+              GestureDetector(
+                onTap: () => Navigator.of(context)
+                    .pushNamed(ForgotPasswordScreen.routeName),
+                child: const Text(
+                  'Forget Password',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ],
@@ -63,6 +70,9 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formkey.currentState!.validate()) {
                 _formkey.currentState!.save();
+                Navigator.of(context).pushNamed(
+                  LoginSuccessScreen.routeName,
+                );
               }
             },
           )
@@ -90,10 +100,12 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.add(kPassNullError);
           });
+          return "";
         } else if (value.length < 8 && !errors.contains(kShortPassError)) {
           setState(() {
             errors.add(kShortPassError);
           });
+          return "";
         }
         return null;
       },
@@ -130,11 +142,13 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             errors.add(kEmailNullError);
           });
+          return "";
         } else if (!emailValidatorRegExp.hasMatch(value) &&
             !errors.contains(kInvalidEmailError)) {
           setState(() {
             errors.add(kInvalidEmailError);
           });
+          return "";
         }
         return null;
       },

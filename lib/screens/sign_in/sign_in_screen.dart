@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
@@ -18,6 +17,7 @@ class SignInScreen extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
+      centerTitle: true,
       title: const Text(
         'Sign In',
       ),
