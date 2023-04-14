@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:store_ui/models/products.dart';
 import 'package:store_ui/screens/home/components/popular_products_screen.dart';
 
 import 'package:store_ui/size_config.dart';
 
+import 'all_products.dart';
 import 'categories.dart';
 import 'discount_banner.dart';
 import 'home_header.dart';
@@ -48,6 +50,12 @@ class Body extends StatelessWidget {
               ),
             ),
             const PopularProductsItems(),
+            SizedBox(
+              height: getProportionateScreenHeight(
+                40,
+              ),
+            ),
+            const AllProducts(),
             SizedBox(
               height: getProportionateScreenHeight(
                 40,
