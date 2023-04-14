@@ -31,7 +31,7 @@ class _SignFormState extends State<SignForm> {
   }
 
   void removeError({required String error}) {
-    if (!errors.contains(error)) {
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
@@ -139,22 +139,27 @@ class _SignFormState extends State<SignForm> {
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-          removeError(error: kEmailNullError);
+          removeError(
+            error: kEmailNullError,
+          );
         } else if (emailValidatorRegExp.hasMatch(value) &&
             errors.contains(kInvalidEmailError)) {
-          removeError(error: kInvalidEmailError);
-          errors.remove(kInvalidEmailError);
+          removeError(
+            error: kInvalidEmailError,
+          );
         }
       },
       validator: (value) {
         if (value!.isEmpty && !errors.contains(kEmailNullError)) {
-          addError(error: kEmailNullError);
-
+          addError(
+            error: kEmailNullError,
+          );
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value) &&
             !errors.contains(kInvalidEmailError)) {
-          addError(error: kInvalidEmailError);
-
+          addError(
+            error: kInvalidEmailError,
+          );
           return "";
         }
         return null;

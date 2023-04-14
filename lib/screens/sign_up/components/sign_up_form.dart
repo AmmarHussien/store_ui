@@ -114,7 +114,9 @@ class _SignUpFromState extends State<SignUpFrom> {
             error: kPassNullError,
           );
         } else if (value.length >= 8 && errors.contains(kShortPassError)) {
-          removeError(error: kShortPassError);
+          removeError(
+            error: kShortPassError,
+          );
         }
         password = value;
       },

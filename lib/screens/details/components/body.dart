@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:store_ui/components/default_buttom.dart';
-import 'package:store_ui/components/rounded_icon_btn.dart';
-import 'package:store_ui/constants.dart';
+
 
 import 'package:store_ui/models/products.dart';
+import 'package:store_ui/screens/cart/cart_screen.dart';
 import 'package:store_ui/size_config.dart';
 
 import 'color_dots.dart';
@@ -57,7 +57,10 @@ class Body extends StatelessWidget {
                           ),
                           child: DefaultButton(
                             text: 'Add to Cart',
-                            press: () {},
+                            press: () {
+                              Navigator.of(context)
+                                  .pushNamed(CartScreen.routeName);
+                            },
                           ),
                         ),
                       ),
