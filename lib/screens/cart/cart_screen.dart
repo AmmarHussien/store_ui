@@ -137,7 +137,7 @@ class CheckOurCard extends StatelessWidget {
                     190,
                   ),
                   child: DefaultButton(
-                    text: 'Check Our',
+                    text: 'Check Out',
                     press: () {},
                   ),
                 ),
