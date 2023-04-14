@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store_ui/screens/details/details_screen.dart';
 
 import '../../../models/products.dart';
 import '../../../size_config.dart';
@@ -29,9 +30,25 @@ class PopularProductsItems extends StatelessWidget {
             children: [
               ...List.generate(
                 demoProducts.length,
-                (index) => ProductCard(
-                  product: demoProducts[index],
-                ),
+                (index) {
+                  if (demoProducts[index].isPopular) {
+                    return ProductCard(
+                      product: demoProducts[index],
+                      press: () {
+                        Navigator.of(context).pushNamed(
+                          DetailsScreen.routeName,
+                          arguments: ProductDetailsArguments(
+                            product: demoProducts[index],
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+              SizedBox(
+                width: getProportionateScreenWidth(20),
               ),
             ],
           ),
