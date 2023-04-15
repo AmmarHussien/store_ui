@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:store_ui/screens/home/home_screen.dart';
 
 import '../../components/custom_buttom_nav_bar.dart';
-import '../../constants.dart';
+
 import '../../enums.dart';
 import 'components/body.dart';
 

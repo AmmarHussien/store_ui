@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:store_ui/models/products.dart';
+
 import 'package:store_ui/screens/home/components/popular_products_screen.dart';
 
 import 'package:store_ui/size_config.dart';

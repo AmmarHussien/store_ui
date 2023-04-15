@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:store_ui/screens/all_product/all_products.dart';
 
 import '../../../models/products.dart';
 import '../../../size_config.dart';
@@ -15,7 +16,9 @@ class AllProducts extends StatelessWidget {
       children: [
         SectionTitle(
           text: 'All Product',
-          press: () {},
+          press: () {
+            Navigator.of(context).pushNamed(AllProductScreen.routeName);
+          },
         ),
         SizedBox(
           height: getProportionateScreenHeight(

@@ -35,6 +35,7 @@ class ProductCard extends StatelessWidget {
         },
         child: SizedBox(
           width: getProportionateScreenWidth(width),
+          //height: getProportionateScreenWidth(width),
           child: Column(
             children: [
               AspectRatio(

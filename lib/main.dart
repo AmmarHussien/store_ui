@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:store_ui/screens/profile/profile_screen.dart';
 
 import 'routs.dart';
 import 'screens/splash/splash_screen.dart';
